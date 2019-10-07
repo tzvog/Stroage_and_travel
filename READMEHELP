@@ -1,0 +1,96 @@
+tzvog 
+
+
+================
+File Description
+================
+BoopingSite.java - a file to hold the class of the booping site
+BoopingSiteTest.java - a file that hold the class of tests for the booping site
+Locker.java - a file that holds the class of a locker
+LockerTest.java - a file that hold the class of tests for the locker
+LongTermStorage.java - a file that holds the class of long term storage
+LongTermTest.java - a file that hold the class of tests for the long term storage
+ProximityComparer.java - a file that holds the class a comparator of hotels by the proximity
+SpaceshipDepositoryTest.java - a file that holds the test suite of the Locker and long term storage
+StarComparer.java - a file that holds a class of comparator of hotels by the stars
+Storage.java - a file that holds the interface of a basic storage operations
+StorageHelper.java - a file that holds the class of storage helper made for implementing
+the storage basic functions
+
+=============================
+=          Design           =
+=============================
+part A -
+    knowing that Locker and long term storage are very similar i wanted to use the facade design pattern
+    to implement code that would be in common for the both of them and give the flexibility of implementing
+    certain parts
+
+    Locker -
+    locker is made for changeable size storage therefore the constructor takes a starting size
+    to have the option that all lockers will be connected to the same long term storage we created a static
+    object of that type so all of them can work with it.
+    we have an instance of the Storage Helper to implement facade
+    the class knows how to act as the face therefore any basic part of the function will be sent to
+    the Storage helper to complete the action but unique tests for this object will be done in this class
+    like calculating when to move items from storage to long term
+
+    LongTermStorage -
+    Long Term Storage's size is not changeable therefore the constructor takes no argument to initialize
+    the size.
+    the differences between Long Term Storage and locker are that the size is not changeable,
+    it has the option of resenting itself very easily with a single function in addition it has different
+    testing to add to the locker itself
+    we have an instance of the Storage Helper to implement facade
+    the class acts like the face therefore all basic function are just passed on to the StorageHelper
+    instance to complete the action but any things that are more unique to this object will come first
+    before calling the function
+
+    StorageHelper -
+    in this class we hold the action to run our locker in our constructor we have the amount to build the
+    storage with. all basic actions towards holding our Storage sit here to avoid duplicate code
+    the way i chose to store the items in the locker is with the help of a hash map
+
+part B -
+
+    booping - this class helps us sort our hotels in a sort of way we needed
+        getHotelsInCityByRating -
+            in this function there was a great advantage of the fact that we needed to iterate
+            over our hotel list giving us the option to convert it to an array list while doing
+            that to take advantage of the comparator that generics give us so we can sort them
+            easier i used an ArrayList due to the dynamics that it gives us by adding one item at a
+            time and the fact that i can access every element easily
+        getHotelsByProximity -
+            to sort using the generics i had to convert our hotel list to an generic which to my preference
+            again was array list using the advantage of generics to use generators to due the job to sort for
+            me
+        getHotelsInCityByProximity -
+            this function was a combination of the other two function therefore i created a function to filer
+            out the city which i used in this and getHotelsInCityByRating and from get hotels by
+            proximity i used in the previous function i used an ArrayList here to be comparable with the
+            rest of the functions
+
+
+=============================
+=  Implementation details   =
+=============================
+Part A -
+     to implements this part of the exercise i realised a lot of code would be duplicated therefore i
+     decided to use the facade design type
+     to force all objects to have the same functions and to make them all implement them i created an
+     interface called storage that has the basic function that all storage items should have
+     i created the Storage helper class to implement those functions
+     and whenever those function needed to be used in the other class they call the instance of this class in
+     there class
+
+part B -
+       to use sorting on generics i needed to create classes that implement Comparator
+       therefore i create the classes Proximity Comparer a class that accepts parameters of a
+       longitude and latitude and will sort our generic of hotels by how close they are and if the distances
+       are equal will sort them by the points of interest.
+       the Star comparer will sort generics with hotels by the amount of stars the hotel has and if two
+       hotels have the same amount of stars it will sort them alphabeticly
+
+
+=============================
+=    Answers to questions   =
+=============================
